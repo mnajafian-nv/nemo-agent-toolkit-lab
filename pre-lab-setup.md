@@ -23,8 +23,8 @@ Save all three somewhere you can paste from. You will need them in Step 3.
 SSH into your GPU instance and run:
 
 ```bash
-git clone https://github.com/mnajafian-nv/nat-agent-lab.git nat-agent-lab
-cd nat-agent-lab
+git clone https://github.com/mnajafian-nv/nemo-agent-toolkit-lab.git
+cd nemo-agent-toolkit-lab
 ```
 
 ## Step 3: Run setup
@@ -74,7 +74,7 @@ Type `What is 2+2?` and confirm you get a response. If the agent answers, you ar
 | vLLM shows "DOWN" after starting services | Wait 2-3 more minutes. The model is large. Check logs with `tmux attach -t vllm`. |
 | API key rejected during setup | The script checks prefixes (`tvly-`, `nvapi-`, `hf_`). Double-check you copied the right value. |
 | Need to change a key later | Edit `.env` in the repo root, or re-run `bash setup.sh`. |
-| Reconnected via SSH, services still running | Just run `./ask` from the `nat-agent-lab` directory. |
+| Reconnected via SSH, services still running | Just run `./ask` from the `nemo-agent-toolkit-lab` directory. |
 | Services stopped after reconnect | Run `bash gaia_tools/start_services.sh` to restart them. |
 
 If you are stuck after trying these, post in the class channel with the error message and someone will help you.

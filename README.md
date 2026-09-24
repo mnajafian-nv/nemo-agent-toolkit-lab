@@ -46,8 +46,8 @@ Review the slides for the concepts behind the lab. Then complete the [Quick Star
 ## Quick Start
 
 ```bash
-git clone https://github.com/mnajafian-nv/nat-agent-lab.git nat-agent-lab
-cd nat-agent-lab
+git clone https://github.com/mnajafian-nv/nemo-agent-toolkit-lab.git
+cd nemo-agent-toolkit-lab
 bash setup.sh          # ~20 min; prompts for API keys, downloads model
 ./ask                  # start chatting
 ```
@@ -248,8 +248,8 @@ The Ollama agent (Path B) is for users without GPUs. If you have a GPU instance,
 **Steps:**
 
 ```bash
-git clone https://github.com/mnajafian-nv/nat-agent-lab.git nat-agent-lab
-cd nat-agent-lab
+git clone https://github.com/mnajafian-nv/nemo-agent-toolkit-lab.git
+cd nemo-agent-toolkit-lab
 bash setup.sh                        # ~20 min; prompts for API keys, downloads model
 bash gaia_tools/start_services.sh    # ~5-10 min (vLLM loads model into GPU memory)
 ./ask                                # verify status line shows all OK
@@ -270,8 +270,8 @@ This path gives you a single agent: **Ollama Ultrafast**, which uses the same pr
 **Steps:**
 
 ```bash
-git clone https://github.com/mnajafian-nv/nat-agent-lab.git nat-agent-lab
-cd nat-agent-lab
+git clone https://github.com/mnajafian-nv/nemo-agent-toolkit-lab.git
+cd nemo-agent-toolkit-lab
 bash setup.sh    # auto-detects no GPU; installs Ollama, pulls model, prompts for keys
 ./ask            # start chatting
 ```
