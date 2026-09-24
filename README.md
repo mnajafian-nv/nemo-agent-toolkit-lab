@@ -1,27 +1,27 @@
-# NAT Agent Lab
+# Building Reliable AI Agents with NeMo Agent Toolkit
 
-LLM agents can search the web, run code, read files, and chain multi-step reasoning together, but getting them to do this *reliably* is an unsolved problem. When an agent picks the wrong tool, hallucinates a search query, or formats its answer incorrectly, the whole chain falls apart. Nobody has figured out how to make this work perfectly, and the techniques that do work are changing fast.
+*Companion lab for [UC Berkeley EE 290/194: Scalable AI](https://scalable-ai.eecs.berkeley.edu/S2026/), Spring 2026*
 
-In this lab you'll get hands-on with the problem. You'll run agents against real questions, watch them fail in interesting ways through traces, change their configs, and measure whether your changes actually helped. By the end of the session you'll have a working intuition for *why* agents break and *how* to fix them.
+LLM agents can search the web, run code, read files, and complete multi-step tasks, but making them reliable remains difficult. A wrong tool choice, an ineffective search, or an incorrectly formatted answer can cause an otherwise capable agent to fail.
 
-**You'll work with three tools:**
+In this lab, you will run agents against real questions, inspect their traces, change their configurations, and measure whether your changes improve the results.
 
-- **[NAT](https://github.com/NVIDIA/NeMo-Agent-Toolkit)** (NeMo Agent Toolkit): NVIDIA's open-source library that adds intelligence to AI agents across any framework, enhancing speed, accuracy, and decision-making through enterprise-grade instrumentation, observability, and continuous learning. You define an agent entirely in YAML (model, tools, system prompt, architecture) and NAT handles orchestration, tool execution, and LLM calls.
-- **[GAIA](https://arxiv.org/abs/2311.12983)**: a benchmark of real-world questions that require multi-step reasoning and tool use. These aren't toy problems. They involve reading spreadsheets, analyzing images, searching the web, running calculations, and combining it all into a precise answer. The repo includes a test set (for benchmarking) and a dev set (with expected answers, for tuning).
-- **[Phoenix](https://docs.arize.com/phoenix)**: a tracing UI built on OpenTelemetry. Every LLM call, tool invocation, and routing decision shows up as a span tree you can click through. When something goes wrong, you can see exactly what the agent did and where it broke.
+## What You Will Learn
 
-**What you'll learn:**
+- **How agents execute tasks.** Follow model calls, tool calls, intermediate results, and routing decisions through a complete run.
+- **Why architecture matters.** Compare a flat agent, a multi-agent orchestrator, and an agent that uses prompt-based routing.
+- **How to diagnose and improve agents.** Use traces to identify unnecessary tool calls, weak routing decisions, and formatting failures, then make focused changes.
+- **How to evaluate your changes.** Run GAIA questions, compare results, and submit your agent to a public leaderboard.
 
-- **How agents actually work under the hood.** Not the theory, but the real execution: which tools get called, what the LLM sees at each step, how routing decisions play out.
-- **Why architecture matters.** You'll run the same question through different agent designs and see in traces how a flat agent, a multi-agent orchestrator, and prompt-driven routing each handle it differently.
-- **How to debug and improve agents.** Read traces, spot wasted tool calls or bad formatting, fix them with targeted prompt edits.
-- **How to measure what you've built.** Your agents submit to a [public leaderboard](https://huggingface.co/spaces/agents-course/Students_Leaderboard) so you can see exactly where you stand.
+The repository includes four reference agents that score between 85% and 90% on the leaderboard. Use them as starting points, inspect where they fail, and build a stronger agent.
 
-The repo ships with four agents that score 85-90% on the leaderboard. They're good but not perfect. Study their configs, read their traces, find where they fail, and build something better.
+## Tools You Will Use
 
-## Start Here: Building Reliable AI Agents
+- **[NeMo Agent Toolkit](https://github.com/NVIDIA/NeMo-Agent-Toolkit):** NVIDIA's open-source toolkit for building, profiling, evaluating, and optimizing agent workflows. The agents in this lab are configured in YAML.
+- **[Phoenix](https://docs.arize.com/phoenix):** An observability interface for exploring model calls, tool calls, routing decisions, latency, and other trace data.
+- **[GAIA](https://arxiv.org/abs/2311.12983):** A benchmark of real-world questions that require reasoning, tool use, and precise answers. The development set includes expected answers for iteration, while the test set supports final benchmarking.
 
-This lab accompanies **Building Reliable AI Agents with NeMo Agent Toolkit**, a guest lecture presented in UC Berkeley's Spring 2026 [Scalable AI: Bridging Theory, Understanding, and Practice](https://scalable-ai.eecs.berkeley.edu/S2026/) course (EE 290/194).
+## Lecture Slides
 
 <div align="center">
   <a href="materials/building-reliable-ai-agents-with-nemo-agent-toolkit-2026.pdf">
@@ -39,13 +39,9 @@ This lab accompanies **Building Reliable AI Agents with NeMo Agent Toolkit**, a 
   </strong>
 </div>
 
-The lecture explains why agents fail, how traces reveal the execution path, how agent architectures differ, and how to evaluate improvements with NeMo Agent Toolkit, Phoenix, and GAIA.
+The lecture begins with agent foundations and common production failure modes, then shows how NeMo Agent Toolkit supports the agent lifecycle. Students build and trace an agent, examine its configuration and plugin architecture, compare agent and orchestration patterns, and use Phoenix and GAIA to evaluate and improve their designs.
 
-After reviewing the slides:
-
-1. Complete the [setup](#setup).
-2. Work through the [guided agent lab](lab/lab-guide.md).
-3. Compare agent architectures, inspect their traces, and improve your benchmark score.
+Review the slides for the concepts behind the lab. Then complete the [Quick Start](#quick-start) and follow the [guided agent lab](lab/lab-guide.md).
 
 ## Quick Start
 
@@ -56,7 +52,7 @@ bash setup.sh          # ~20 min; prompts for API keys, downloads model
 ./ask                  # start chatting
 ```
 
-Setup takes 20-30 minutes (model download, dependencies, API keys). See [Setup](#setup) for details. There is a [GPU path](#path-a-gpu-instance-all-agents) and an [Ollama path](#path-b-local-ollama-no-gpu) if you don't have GPUs.
+Setup takes 20-30 minutes (model download, dependencies, API keys). See [Setup](#setup) for details. There is a [GPU path](#path-a-gpu-instance-three-agents) and an [Ollama path](#path-b-local-ollama-one-agent-no-gpu) if you don't have GPUs.
 
 You should see a status line like `Agent: ultrafast | vLLM: OK | NAT: OK | Phoenix: OK`. If anything looks wrong, type `status` for diagnostics. Try asking "What is 2+2?" to confirm the agent responds.
 
@@ -381,7 +377,7 @@ bash gaia_tools/gaia_run.sh -c my-agent/config.yml   # your custom config
 - Check if it's still loading: `tmux attach -t vllm` (Ctrl+B, D to detach)
 
 **No GPU / macOS**
-- Use the Ollama-served agent instead. See [Path B](#path-b-local-ollama-no-gpu) setup.
+- Use the Ollama-served agent instead. See [Path B](#path-b-local-ollama-one-agent-no-gpu) setup.
 
 ## File Structure
 
