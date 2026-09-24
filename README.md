@@ -19,9 +19,33 @@ In this lab you'll get hands-on with the problem. You'll run agents against real
 
 The repo ships with four agents that score 85-90% on the leaderboard. They're good but not perfect. Study their configs, read their traces, find where they fail, and build something better.
 
-## For Class Students
+## Start Here: Building Reliable AI Agents
 
-Complete the [Setup](#setup) below, then follow the **[Lab Guide](lab/lab-guide.md)** for a full guided walkthrough with Phoenix tracing, failure diagnosis, and benchmarking.
+This lab accompanies **Building Reliable AI Agents with NeMo Agent Toolkit**, a guest lecture presented in UC Berkeley's Spring 2026 [Scalable AI: Bridging Theory, Understanding, and Practice](https://scalable-ai.eecs.berkeley.edu/S2026/) course (EE 290/194).
+
+<div align="center">
+  <a href="materials/building-reliable-ai-agents-with-nemo-agent-toolkit-2026.pdf">
+    <img
+      src="assets/building-reliable-ai-agents-cover.png"
+      alt="Building Reliable AI Agents with NeMo Agent Toolkit lecture slides"
+      width="760"
+    >
+  </a>
+  <br>
+  <strong>
+    <a href="materials/building-reliable-ai-agents-with-nemo-agent-toolkit-2026.pdf">
+      Open the 62-slide lecture deck &rarr;
+    </a>
+  </strong>
+</div>
+
+The lecture explains why agents fail, how traces reveal the execution path, how agent architectures differ, and how to evaluate improvements with NeMo Agent Toolkit, Phoenix, and GAIA.
+
+After reviewing the slides:
+
+1. Complete the [setup](#setup).
+2. Work through the [guided agent lab](lab/lab-guide.md).
+3. Compare agent architectures, inspect their traces, and improve your benchmark score.
 
 ## Quick Start
 
