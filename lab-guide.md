@@ -5,7 +5,7 @@
 **First:** Pull the latest code to ensure you have all updates.
 
 ```bash
-cd nat-agent-lab
+cd nemo-agent-toolkit-lab
 git pull
 ```
 
